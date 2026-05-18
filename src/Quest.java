@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Quest {
 
     private String questName;
@@ -46,8 +48,17 @@ public class Quest {
         this.reputationReward = reputationReward;
     }
 
+    // UPDATED: Now includes the 50/50 RNG luck mechanic for underpowered guilds
     public boolean attemptQuest(int teamPower) {
-        return teamPower >= difficultyLevel;
+        if (teamPower >= difficultyLevel) {
+            // Guaranteed Win: Your guild is strong enough
+            return true;
+        } else {
+            // Underpowered: Flip a 50/50 coin for a lucky victory!
+            System.out.println("Your guild is underpowered! Attempting a risky maneuver... (50/50 chance)");
+            Random rng = new Random();
+            return rng.nextBoolean(); // Returns true 50% of the time, false 50% of the time
+        }
     }
 
     @Override
